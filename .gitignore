@@ -1,1 +1,3 @@
 .venv/
+data/activations/output_20_activations.jsonl
+ongoing_*.json
