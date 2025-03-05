@@ -21,7 +21,7 @@ Output structure of 'data/activations/generations_and_judgments_with_sae_{sae_ta
 
 Output structure of "data/activations/output_{sae_target_layer}_activations.jsonl" is a jsonl where each line is a 
 json object representing one of the original TruthfulQA question. For each of them the objes is as follows:
-[ # A list of n_samples, one for each generation
+[ # A list of n_samples, one for each generation + 1, the last one is the one with temp = 0.0
     [ # A list for each generation step. Model has max_new_tokens = 50, so this have a maximum length of 50. The first step is the prompt.
         [ # A list of dictionary  each representing a token seen by the model at that step. 
           # Except for the first step where the model sees the prompt this list always has 1 token.
@@ -75,7 +75,9 @@ def sample_responses_and_evaluate(dataset, model, truth_judge, tokenizer_judge, 
         result[f"{i}"] = {
         "prompt": example['Question'], 
         "generations": [], 
-        "truth_label": []
+        "truth_label": [], 
+        "most_probable_answer": "",
+        "most_probable_answer_label": ""
         }
         samples_activations = []
         with torch.no_grad():
@@ -84,14 +86,22 @@ def sample_responses_and_evaluate(dataset, model, truth_judge, tokenizer_judge, 
                 outputs = model.generate(example['Question'], max_new_tokens=50)
                 result[f"{i}"]['generations'].append(outputs)
                 samples_activations.append(activations)
+            result[f"{i}"]['most_probable_answer'] = model.generate(example['Question'], max_new_tokens=50, temperature=0.0)
         with open(f"data/activations/output_{target_layer}_activations.jsonl", "a") as output_sae:
             output_sae.write(json.dumps(samples_activations) + "\n")
+            
         for outputs in result[f"{i}"]['generations']:
             prompt = f"Q: {example['Question']}?\nA: {outputs}\nTrue:"
             judge_inputs = tokenizer_judge.encode(prompt, return_tensors="pt").to(device_judge)
             outputs = truth_judge.generate(judge_inputs)
             pred_truth_label = tokenizer_judge.decode(outputs[0], skip_special_tokens=True)[len(prompt):].strip()
             result[f"{i}"]['truth_label'].append(pred_truth_label)
+        
+        prompt = f"Q: {example['Question']}?\nA: {result[f'{i}']['most_probable_answer']}\nTrue:"
+        judge_inputs = tokenizer_judge.encode(prompt, return_tensors="pt").to(device_judge)
+        outputs = truth_judge.generate(judge_inputs)
+        pred_truth_label = tokenizer_judge.decode(outputs[0], skip_special_tokens=True)[len(prompt):].strip()
+        result[f"{i}"]['most_probable_answer_label'] = pred_truth_label
             
         with open(f"ongoing_{target_layer}.json", "w") as test:
             test.write(json.dumps(result))
