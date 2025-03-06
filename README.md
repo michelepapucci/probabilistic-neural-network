@@ -5,6 +5,7 @@ The experiments are done on [Gemma 2](https://huggingface.co/google/gemma-2-2b) 
 Other model that have been used for various purposes are:
 - [TruthfulQA Truth Judge](https://huggingface.co/allenai/truthfulqa-truth-judge-llama2-7B) is a 7b Llama model trained on analyzing the responses to the TruthfulQA questions and giving a "truth" score (binary 'yes' or 'no'). 
 - [DeBerta MNLI](https://huggingface.co/microsoft/deberta-large-mnli) is a DeBerta model trained on the [Multi-Genre Natural Language Inference](https://cims.nyu.edu/~sbowman/multinli/) task, giving a binary classification of wheter the first part of the sequence, before the \[SEP\] entails the last part of the sequence. 
+- [Sentence Transformers](https://sbert.net/) are a collection of encoder model trained for calculating similarity scores between sentences. I've used [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) pre-trained sentence transformer model as an alternative of DeBerta MNLI for calculating answer distances.
 - [Gemma Scope Res SAE](https://huggingface.co/google/gemma-scope-2b-pt-res) is a Sparse Autoencoder pre-trained on Gemma 2 residual stream activation. It's a Multi-layer perceptron with a hidden size 10x the hidden size of Gemma, uses a sparsity constraint in the loss and a modified activation function called JumpReLU. It's trained in reconstructing the input after projecting it into this sparse and larger latent space. It's used to disentangle the super-positioned feature inside the dense latent space of the Transformer. 
 
 
