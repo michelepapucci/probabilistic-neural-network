@@ -106,7 +106,7 @@ def sample_responses_and_evaluate(dataset, model, truth_judge, tokenizer_judge, 
         with open(f"ongoing_{target_layer}.json", "w") as test:
             test.write(json.dumps(result))
 
-    with open(f"data/activations/generations_and_judgments_with_sae_{target_layer}.json", "w") as output_json:
+    with open(f"data/generations_and_judgments_with_sae_{target_layer}.json", "w") as output_json:
         output_json.write(json.dumps(result))
 
 if __name__ == "__main__": 

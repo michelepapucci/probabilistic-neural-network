@@ -12,6 +12,8 @@ Other model that have been used for various purposes are:
 
 `generate_responses.py` takes an argument `-l` which represents the layer of Gemma at which the Gemma Scope SAE is hooked. The script loops trough TruthfulQA and generates 5 answers per-question at temperature 1.0 and one at temperature 0.0. Each of these answers are judged by the TruthfulQA Truth Judge, and for each of these generations the SAE latent space activation are saved for further analysis. 
 
+Then, `clean_responses.py` is launched to clean the generations from the prompt if the model repeated it in its answer.
+
 
 ## Generating Similarity Scores
 
