@@ -24,6 +24,9 @@ In particular it calculates:
 
 Thes Similarity scores are then used to calculate both **uncertainty** estimate $U(x)$ or a confidence score $C(x)$. 
 
+### Sentence Transformer Variant
+`generate_similarities_scores_sentence_transformer.ipynb` is a variant of `generate_similarities_scores.ipynb` where instead of using DeBerta trained on MNLI, it uses a pre-trained Sentence Transformer which is a model specifically tailored to calculate similarity between sentence. All experiments have been done on both variant of similarity scores. 
+
 ## Uncertainty vs Confidence
 Uncertainty $U$ typically depends only on the input $x$. So, e.g., $P(Y|x) = \mathcal{N}(\mu, \sigma^2)$ the variance $\sigma^2$ is an uncertainty measure. 
 However Confidence measure $C$ is generally associated with both the input and the prediction $C(x,y)$, in the context of classification, one of the simplest confidence measures is just the predicted probabilty. 
@@ -58,3 +61,5 @@ This calculations are done for all the generations.
 - Margin Probability Uncertainty; 
 
 This is calculated on the whole dataset and also on different subsets. 
+
+## Results and Comments
