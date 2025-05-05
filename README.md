@@ -84,11 +84,11 @@ Here we can see that we have a low AUROC for the "True" prediction (0.32). Meani
 We first calculate the Lenght-Normalized and the non-normalized version of the **Predictive Entropy**, and evaluate its AUROC.
 The predictive entropy is calculated as:  
 $$  
-H[p(y|x)] = - \sum_i p(y_i|x)\log p(y_i|x)
+H[p(y|x)] = - \sum_i p(y_i|x)\log p(y_i|x)  
 $$  
 where p(y_i|x) is the likelihood and it's calculated as the average likelihood across all five examples:  
 $$  
-\log(\frac{1}{M}\sum_{m=1}^M p_m(x)) 
+\log(\frac{1}{M}\sum_{m=1}^M p_m(x))  
 $$  
 
 The Length-Normalized one is calculated by using the average negative log-likelihood of the generation, while the unnormalized version on the total loss of the generation. We can see that both have an AUROC around 0.5 meaning that the model is uncertain about its prediction. So, while having a task accuracy of 0.7, the model doensn't seem sure about its predictions. 
