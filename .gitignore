@@ -2,3 +2,4 @@
 output_*_activations.jsonl
 ongoing_*.json
 old_data/*
+listen_gpu_and_launch.py

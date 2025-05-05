@@ -53,9 +53,7 @@ In particular, `generate_log_likelihoods.ipynb` calculates:
 - Pointwise Mutual Information (PMI) between the NLL and the Uncoditioned NLL. It gives a measure of how much more informative the prompt is to generate the sequence compared to generating it without it.
 - Hidden state of the last layer are also saved. 
 
-This calculations are done for all the generations. 
-
-`generate_confidence.ipynb` calculates a bunch more measure starting from these ones mostly aggregating them, in particular: 
+This calculations are done for all the generations. `generate_confidence.ipynb` calculates a bunch more measure starting from these ones, in particular: 
 - Average PMI;
 - Mutual Information;
 - Variance of NLL;
@@ -64,7 +62,7 @@ This calculations are done for all the generations.
 - Predictive Entropy across Concepts; 
 - Margin Probability Uncertainty; 
 
-This is calculated on the whole dataset and also on different subsets. 
+This is calculated on the whole dataset and also on different subsets. Then, all the calculated measures are aggregated and reported on a json file using `result.ipynb` and `result_SAE.ipynb`. 
 
 # Results and Comments
 
