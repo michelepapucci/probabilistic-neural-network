@@ -1,6 +1,8 @@
 # Probabilistic Neural Network Exam
 The scripts are an adaptation of [Uncertainty in LLMs](https://github.com/DhairyaKarna/uncertainity_in_LLMs/) and adapted to [TruthfulQA Dataset](https://huggingface.co/datasets/domenicrosati/TruthfulQA).
 
+# Models
+
 The experiments are done on [Gemma 2](https://huggingface.co/google/gemma-2-2b) on its 2B parameters version. 
 Other model that have been used for various purposes are:
 - [TruthfulQA Truth Judge](https://huggingface.co/allenai/truthfulqa-truth-judge-llama2-7B) is a 7b Llama model trained on analyzing the responses to the TruthfulQA questions and giving a "truth" score (binary 'yes' or 'no'). 
@@ -8,6 +10,7 @@ Other model that have been used for various purposes are:
 - [Sentence Transformers](https://sbert.net/) are a collection of encoder model trained for calculating similarity scores between sentences. I've used [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) pre-trained sentence transformer model as an alternative of DeBerta MNLI for calculating answer distances.
 - [Gemma Scope Res SAE](https://huggingface.co/google/gemma-scope-2b-pt-res) is a Sparse Autoencoder pre-trained on Gemma 2 residual stream activation. It's a Multi-layer perceptron with a hidden size 10x the hidden size of Gemma, uses a sparsity constraint in the loss and a modified activation function called JumpReLU. It's trained in reconstructing the input after projecting it into this sparse and larger latent space. It's used to disentangle the super-positioned feature inside the dense latent space of the Transformer. 
 
+# Code
 
 ## Generating Samples
 
@@ -63,4 +66,15 @@ This calculations are done for all the generations.
 
 This is calculated on the whole dataset and also on different subsets. 
 
-## Results and Comments
+# Results and Comments
+
+I divided the results into three categories: the uncertainty measure results, the confidence measures results, and the SAE activations analysis. 
+
+## Uncertainty Measure
+uncertainty
+
+## Confidence Measure
+confidence
+
+## SAE activations analysis
+SAE
