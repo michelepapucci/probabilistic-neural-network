@@ -82,11 +82,11 @@ Here we can see that we have a low AUROC for the "True" prediction (0.32). Meani
 ## Confidence Measures
 
 We first calculate the Lenght-Normalized and the non-normalized version of the **Predictive Entropy**, and evaluate its AUROC.
-The predictive entropy is calculated as:
+The predictive entropy is calculated as:  
 $$
 H[p(y|x)] = - \sum_i p(y_i|x)\log p(y_i|x)
 $$
-where p(y_i|x) is the likelihood and it's calculated as the average likelihood across all five examples:
+where p(y_i|x) is the likelihood and it's calculated as the average likelihood across all five examples:  
 $$
 \log(\frac{1}{M}\sum_{m=1}^M p_m(x)) 
 $$
