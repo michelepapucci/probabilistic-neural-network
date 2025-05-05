@@ -37,11 +37,14 @@ However Confidence measure $C$ is generally associated with both the input and t
 
 ## Generating an Uncertainty Estimate
 
-`generate_uncertainty.ipynb` is a Jupyter notebook that given the generated answers calculates a measure of *total uncertainty* which should be indicative of epistemic uncertainty. 
-The way it works is by creating a prompt as: *Question: {} \n Here are some ideas that were brainstormed:{}\n Possible answer:{}\n Is the possible answer:\n (A) True\n (B) False\n The possible answer is: True*. 
-This is done in a few shot settings, before this is appended a couples of examples with the correct prediction. Then, this is all masked, with the exception of the "True" token, so that we can see the loss of the model w.r.t this injected prediction (i.e. we always inject True, wheter or not the answer is true). 
+`generate_uncertainty.ipynb` is a Jupyter notebook that given the generated answers calculates a measure of *total uncertainty* which should be indicative of epistemic uncertainty. The way it works is by using a prompt template such as this:
+```
+*Question: {} \n Here are some ideas that were brainstormed:{}\n Possible answer:{}\n Is the possible answer:\n (A) True\n (B) False\n The possible answer is: True*.
+```
+This is done in a few shot settings, before this is appended a couples of examples with the correct prediction. Then, everything is masked, with the exception of the "True" token, so that we can see the loss of the model w.r.t this injected prediction (i.e. we always inject the token "True", wheter or not the answer is true).   
 This loss is calculated for a good sample of the dataset 800/816 (the others are used as few-shot examples), and then transformed to *probability estimates* of the model uncertainty towards that prediction by the means of $exp(-loss)$. 
-These values are used, togheter with the true labels for calculating an AUROC score as a total uncertainty measure of the model prediction of the "True" label. 
+
+These values are used, togheter with the true labels, for calculating an AUROC score as a total uncertainty measure of the model prediction of the "True" label. This was also done for the "False" label. 
 
 ## Generating Confidence Measures
 
@@ -69,7 +72,12 @@ This is calculated on the whole dataset and also on different subsets. Then, all
 I divided the results into three categories: the uncertainty measure results, the confidence measures results, and the SAE activations analysis. 
 
 ## Uncertainty Measure
-uncertainty
+
+For the Uncertainty Measure I calculated the loss of the token that the model uses in prediction. Particularly I used this template: "*Question: {} \n Here are some ideas that were brainstormed:{}\n Possible answer:{}\n Is the possible answer:\n (A) True\n (B) False\n The possible answer is: True*." and saw wether the loss of the final "True" token was predictive of the correct answer actually being true. I did this for both "True" and "False" prediction, and calculated the AUROC:
+
+![Auroc](images/auroc_uncertainty.png)
+
+Here we can see that we have a low AUROC for the "True" prediction (0.32). Meaning that the model's loss isn't as capable as distinguishing when the "True" token should, or shouldn't be there. This means that "True" token's prediction are uncertain and shouldn't be trusted as much as the "False" ones, where we see that the AUROC reaches 0.62. Meaning that the model is much more certain on when to use the "False" tokens w.r.t of the "True" one. 
 
 ## Confidence Measure
 confidence
