@@ -58,7 +58,7 @@ These values are used, togheter with the true labels, for calculating an AUROC s
 `generate_log_likelihoods.ipynb` is a Jupyter notebook used to do a bunch of calculation before actually generating confidence measures with `generate_confidence.ipynb`. 
 
 In particular, `generate_log_likelihoods.ipynb` calculates:
-- Average Negative Log Likelihood (NLI) calculated for each generations. Basically it calculates the loss for any of the answers by doing a forward pass trough the model (ignoring the prompt for the purpose of calculating the loss). This gives a measure of how likely is the model to generate that sentence given the prompt. 
+- Average Negative Log Likelihood (NLL) calculated for each generations. Basically it calculates the loss for any of the answers by doing a forward pass trough the model (ignoring the prompt for the purpose of calculating the loss). This gives a measure of how likely is the model to generate that sentence given the prompt. 
 - Average Unconditioned NLL is the same as above, but without providing the prompt. Aka how likely is the model to generate that sentence without the context of the prompt. 
 - Pointwise Mutual Information (PMI) between the NLL and the Uncoditioned NLL. It gives a measure of how much more informative the prompt is to generate the sequence compared to generating it without it.
 - Hidden state of the last layer are also saved. 
