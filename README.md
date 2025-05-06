@@ -33,7 +33,10 @@ In particular it calculates:
 Thes Similarity scores are then used to calculate both **uncertainty** estimate $U(x)$ or a confidence score $C(x)$. 
 
 ### Sentence Transformer Variant
-`generate_similarities_scores_sentence_transformer.ipynb` is a variant of `generate_similarities_scores.ipynb` where instead of using DeBerta trained on MNLI, it uses a pre-trained Sentence Transformer which is a model specifically tailored to calculate similarity between sentence. All experiments have been done on both variant of similarity scores. 
+`generate_similarities_scores_sentence_transformer.ipynb` is a variant of `generate_similarities_scores.ipynb` where instead of using DeBerta trained on MNLI, it uses a pre-trained Sentence Transformer which is a model specifically tailored to calculate similarity between sentence. The semantic sets were evaluated like this:
+if two sentences had a $similarity\_score \ge 0.5$ they were placed on the same set. The Sentence Transformer's similarity score is built like that a prediction of $1.0$ means that the two sentences are equal, and of $0.0$ means that they are totally opposite. 
+
+All experiments have been done on both variant of similarity scores. 
 
 ## Uncertainty vs Confidence
 Uncertainty $U$ typically depends only on the input $x$. So, e.g., $P(Y|x) = \mathcal{N}(\mu, \sigma^2)$ the variance $\sigma^2$ is an uncertainty measure. 
@@ -41,7 +44,7 @@ However Confidence measure $C$ is generally associated with both the input and t
 
 ## Generating an Uncertainty Estimate
 
-`generate_uncertainty.ipynb` is a Jupyter notebook that given the generated answers calculates a measure of *total uncertainty* which should be indicative of epistemic uncertainty. The way it works is by using a prompt template such as this:
+`generate_uncertainty.ipynb` is a Jupyter notebook that given the generated answers calculates a measure of *total uncertainty* which should be indicative of the epistemic uncertainty. The way it works is by using a prompt template such as this:
 ```
 Question: {} \n Here are some ideas that were brainstormed:{}\n Possible answer:{}\n Is the possible answer:\n (A) True\n (B) False\n The possible answer is: True.
 ```
